@@ -1,0 +1,367 @@
+MariaDB [dbtokoti05]> select * from produk;
++----+--------+-------------------+------------+------------+------+----------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto                   | deskripsi                                                                                                                                                                                                           | jenis_produk_id |
++----+--------+-------------------+------------+------------+------+----------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+|  1 | TV01   | Televisi 21 inchs |    3500000 |   50500000 |    5 |        2 |                        | NULL                                                                                                                                                                                                                |               1 |
+|  2 | TV02   | Televisi 40 inch  |    5500000 |    7440000 |    4 |        2 | NULL                   | NULL
+                                                                             |               1 |
+|  3 | K001   | Kulkas 2 pintu    |    3500000 |    4680000 |    6 |        2 |                        | NULL
+
+                                                                             |               1 |
+|  4 | M001   | Meja Makan        |     500000 |     600000 |    4 |        3 | NULL                   | NULL
+
+                                                                             |               2 |
+|  5 | TK01   | Teh Kotak         |       3000 |       3500 |    6 |       10 | foto-5.png             | NULL
+
+                                                                             |               4 |
+|  6 | PC01   | PC Desktop HP     |    7000000 |    9984000 |    9 |        2 | NULL                   | NULL
+
+                                                                             |               5 |
+|  7 | TB01   | Teh Botol         |       2000 |       2500 |   53 |       10 | foto-7.jpg             | NULL
+
+                                                                             |               4 |
+|  8 | AC01   | Notebook Acer S   |    8000000 |   11232000 |    7 |        2 | NULL                   | NULL
+
+                                                                             |               5 |
+|  9 | LN01   | Notebook Lenovo   |    9000000 |   12480000 |    9 |        2 | NULL                   | NULL
+
+                                                                             |               5 |
+| 11 | L005   | Laptop Lenovo     |   13000000 |   16000000 |    5 |        2 |                        | NULL
+
+                                                                             |               1 |
+| 15 | L112   | Kopi              |      20000 |      30000 |   10 |       15 | foto-15.png            | Luwak White Coffee merupakan bubuk biji kopi luwak yang dikombinasikan dengan gurihnya krimer serta manisnya gula. Keharuman kopi serta rasa manisnya yang pas juga membuat popularitas Luwak White Coffee melejit. |               4 |
+| 16 | L113   | Teh Sosro 2       |      10000 |      15000 |   10 |       12 | .png                   | NULL
+
+                                                                             |               1 |
+| 18 | L0015  | Laptop Asus       |    3000000 |    5000000 |   10 |       20 | foto-65542ffa66604.jpg | NULL
+
+                                                                             |               1 |
+| 19 | TV0115 | Televisi 22 inc`  |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 20 | TV0116 | Televisi 23 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 21 | TV0117 | Televisi 24 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 22 | TV0118 | Televisi 25 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 24 | TV0120 | Televisi 27 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 25 | TV0121 | Televisi 28 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 26 | TV0122 | Televisi 29 inc   |    3500000 |   50500000 |    5 |        2 | NULL                   | NULL
+
+                                                                             |               1 |
+| 27 | THP001 | Teh Pucuk         |       4000 |       5000 |   10 |        2 | pucuk.jpg              | Teh pucuk adalah
+                                                                             |               4 |
+| 28 | THP002 | Teh Pucuk2        |       4000 |       5000 |   10 |        2 | pucuk.jpg              | Teh pucuk adalah
+                                                                             |               4 |
++----+--------+-------------------+------------+------------+------+----------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+22 rows in set (0.097 sec)
+
+MariaDB [dbtokoti05]> SELECT MAX(stok) FROM produk;
++-----------+
+| MAX(stok) |
++-----------+
+|        53 |
++-----------+
+1 row in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE stok =
+    -> (SELECT MAX(stok) AS stok_terbanyak FROM produk);
++----+------+-----------+------------+------------+------+----------+------------+-----------+-----------------+
+| id | kode | nama      | harga_beli | harga_jual | stok | min_stok | foto       | deskripsi | jenis_produk_id |
++----+------+-----------+------------+------------+------+----------+------------+-----------+-----------------+
+|  7 | TB01 | Teh Botol |       2000 |       2500 |   53 |       10 | foto-7.jpg | NULL      |               4 |
++----+------+-----------+------------+------------+------+----------+------------+-----------+-----------------+
+1 row in set (0.002 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama_produk
+    -> LIKE 't%';
+ERROR 1054 (42S22): Unknown column 'nama_produk' in 'where clause'
+MariaDB [dbtokoti05]> SELECT * FORM produk WHERE nama
+    -> LIKE 't%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FORM produk WHERE nama
+LIKE 't%'' at line 1
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE 't%';
++----+--------+-------------------+------------+------------+------+----------+------------+------------------+-----------------+
+| id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto       | deskripsi        | jenis_produk_id |
++----+--------+-------------------+------------+------------+------+----------+------------+------------------+-----------------+
+|  1 | TV01   | Televisi 21 inchs |    3500000 |   50500000 |    5 |        2 |            | NULL             |               1 |
+|  2 | TV02   | Televisi 40 inch  |    5500000 |    7440000 |    4 |        2 | NULL       | NULL             |               1 |
+|  5 | TK01   | Teh Kotak         |       3000 |       3500 |    6 |       10 | foto-5.png | NULL             |               4 |
+|  7 | TB01   | Teh Botol         |       2000 |       2500 |   53 |       10 | foto-7.jpg | NULL             |               4 |
+| 16 | L113   | Teh Sosro 2       |      10000 |      15000 |   10 |       12 | .png       | NULL             |               1 |
+| 19 | TV0115 | Televisi 22 inc`  |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 20 | TV0116 | Televisi 23 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 21 | TV0117 | Televisi 24 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 22 | TV0118 | Televisi 25 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 24 | TV0120 | Televisi 27 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 25 | TV0121 | Televisi 28 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 26 | TV0122 | Televisi 29 inc   |    3500000 |   50500000 |    5 |        2 | NULL       | NULL             |               1 |
+| 27 | THP001 | Teh Pucuk         |       4000 |       5000 |   10 |        2 | pucuk.jpg  | Teh pucuk adalah |               4 |
+| 28 | THP002 | Teh Pucuk2        |       4000 |       5000 |   10 |        2 | pucuk.jpg  | Teh pucuk adalah |               4 |
++----+--------+-------------------+------------+------------+------+----------+------------+------------------+-----------------+
+14 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%televisi'
+    -> LIKE '%televisi';
+Empty set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE 'televisi%';
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+| id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto | deskripsi | jenis_produk_id |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+|  1 | TV01   | Televisi 21 inchs |    3500000 |   50500000 |    5 |        2 |      | NULL      |               1 |
+|  2 | TV02   | Televisi 40 inch  |    5500000 |    7440000 |    4 |        2 | NULL | NULL      |               1 |
+| 19 | TV0115 | Televisi 22 inc`  |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 20 | TV0116 | Televisi 23 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 21 | TV0117 | Televisi 24 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 22 | TV0118 | Televisi 25 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 24 | TV0120 | Televisi 27 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 25 | TV0121 | Televisi 28 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 26 | TV0122 | Televisi 29 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+9 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%K' ;
++----+--------+-----------+------------+------------+------+----------+------------+------------------+-----------------+
+| id | kode   | nama      | harga_beli | harga_jual | stok | min_stok | foto       | deskripsi        | jenis_produk_id |
++----+--------+-----------+------------+------------+------+----------+------------+------------------+-----------------+
+|  5 | TK01   | Teh Kotak |       3000 |       3500 |    6 |       10 | foto-5.png | NULL             |               4 |
+| 27 | THP001 | Teh Pucuk |       4000 |       5000 |   10 |        2 | pucuk.jpg  | Teh pucuk adalah |               4 |
++----+--------+-----------+------------+------------+------+----------+------------+------------------+-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%a';
+Empty set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%a';
+Empty set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%a' ;
+Empty set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%note%';
++----+------+-----------------+------------+------------+------+----------+------+-----------+-----------------+
+| id | kode | nama            | harga_beli | harga_jual | stok | min_stok | foto | deskripsi | jenis_produk_id |
++----+------+-----------------+------------+------------+------+----------+------+-----------+-----------------+
+|  8 | AC01 | Notebook Acer S |    8000000 |   11232000 |    7 |        2 | NULL | NULL      |               5 |
+|  9 | LN01 | Notebook Lenovo |    9000000 |   12480000 |    9 |        2 | NULL | NULL      |               5 |
++----+------+-----------------+------------+------------+------+----------+------+-----------+-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '%a%' ;
++----+-------+-----------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+| id | kode  | nama            | harga_beli | harga_jual | stok | min_stok | foto                   | deskripsi | jenis_produk_id |
++----+-------+-----------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+|  3 | K001  | Kulkas 2 pintu  |    3500000 |    4680000 |    6 |        2 |                        | NULL      |               1 |
+|  4 | M001  | Meja Makan      |     500000 |     600000 |    4 |        3 | NULL                   | NULL      |               2 |
+|  5 | TK01  | Teh Kotak       |       3000 |       3500 |    6 |       10 | foto-5.png             | NULL      |               4 |
+|  8 | AC01  | Notebook Acer S |    8000000 |   11232000 |    7 |        2 | NULL                   | NULL      |               5 |
+| 11 | L005  | Laptop Lenovo   |   13000000 |   16000000 |    5 |        2 |                        | NULL      |               1 |
+| 18 | L0015 | Laptop Asus     |    3000000 |    5000000 |   10 |       20 | foto-65542ffa66604.jpg | NULL      |               1 |
++----+-------+-----------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '_a%';
++----+-------+---------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+| id | kode  | nama          | harga_beli | harga_jual | stok | min_stok | foto                   | deskripsi | jenis_produk_id |
++----+-------+---------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+| 11 | L005  | Laptop Lenovo |   13000000 |   16000000 |    5 |        2 |                        | NULL      |               1 |
+| 18 | L0015 | Laptop Asus   |    3000000 |    5000000 |   10 |       20 | foto-65542ffa66604.jpg | NULL      |               1 |
++----+-------+---------------+------------+------------+------+----------+------------------------+-----------+-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '___e%' ;
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+| id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto | deskripsi | jenis_produk_id |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+|  1 | TV01   | Televisi 21 inchs |    3500000 |   50500000 |    5 |        2 |      | NULL      |               1 |
+|  2 | TV02   | Televisi 40 inch  |    5500000 |    7440000 |    4 |        2 | NULL | NULL      |               1 |
+|  8 | AC01   | Notebook Acer S   |    8000000 |   11232000 |    7 |        2 | NULL | NULL      |               5 |
+|  9 | LN01   | Notebook Lenovo   |    9000000 |   12480000 |    9 |        2 | NULL | NULL      |               5 |
+| 19 | TV0115 | Televisi 22 inc`  |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 20 | TV0116 | Televisi 23 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 21 | TV0117 | Televisi 24 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 22 | TV0118 | Televisi 25 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 24 | TV0120 | Televisi 27 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 25 | TV0121 | Televisi 28 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 26 | TV0122 | Televisi 29 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+11 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * FROM produk WHERE nama
+    -> LIKE '__l%';
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+| id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto | deskripsi | jenis_produk_id |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+|  1 | TV01   | Televisi 21 inchs |    3500000 |   50500000 |    5 |        2 |      | NULL      |               1 |
+|  2 | TV02   | Televisi 40 inch  |    5500000 |    7440000 |    4 |        2 | NULL | NULL      |               1 |
+|  3 | K001   | Kulkas 2 pintu    |    3500000 |    4680000 |    6 |        2 |      | NULL      |               1 |
+| 19 | TV0115 | Televisi 22 inc`  |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 20 | TV0116 | Televisi 23 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 21 | TV0117 | Televisi 24 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 22 | TV0118 | Televisi 25 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 24 | TV0120 | Televisi 27 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 25 | TV0121 | Televisi 28 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
+| 26 | TV0122 | Televisi 29 inc   |    3500000 |   50500000 |    5 |        2 | NULL | NULL      |               1 |
++----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
+10 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT DISTICNT harga_beli FROM produk;
+ERROR 1054 (42S22): Unknown column 'DISTICNT' in 'field list'
+MariaDB [dbtokoti05]> SELECT DISTICNT jenis_produk_id FROM produk;
+ERROR 1054 (42S22): Unknown column 'DISTICNT' in 'field list'
+MariaDB [dbtokoti05]> SELECT DISTINCT jenis_produk_id FROM produk;
++-----------------+
+| jenis_produk_id |
++-----------------+
+|               1 |
+|               2 |
+|               4 |
+|               5 |
++-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT DISTINCT harga_jual FROM produk;
++------------+
+| harga_jual |
++------------+
+|   50500000 |
+|    7440000 |
+|    4680000 |
+|     600000 |
+|       3500 |
+|    9984000 |
+|       2500 |
+|   11232000 |
+|   12480000 |
+|   16000000 |
+|      30000 |
+|      15000 |
+|    5000000 |
+|       5000 |
++------------+
+14 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT nama_produk, harga, stok,
+    -> CASE
+    -> WHEN stok <= 5 THEN 'stok menipis'
+    -> WHEN stok <= 5 AND stok < 10 THEN 'stok tercukupi'
+    -> ELSE ' stok aman'
+    -> END AS keterangan
+    -> FROM produk;
+ERROR 1054 (42S22): Unknown column 'nama_produk' in 'field list'
+MariaDB [dbtokoti05]> SELECT nama, harga_jual, stok,
+    -> CASE
+    -> WHEN stok <= 5 THEN 'stok menipis'
+    -> WHEN stok <= 5 AND stok < 10 THEN 'stok tercukupi'
+    -> ELSE 'stok aman'
+    -> END AS keterangan
+    -> FROM produk;
++-------------------+------------+------+--------------+
+| nama              | harga_jual | stok | keterangan   |
++-------------------+------------+------+--------------+
+| Televisi 21 inchs |   50500000 |    5 | stok menipis |
+| Televisi 40 inch  |    7440000 |    4 | stok menipis |
+| Kulkas 2 pintu    |    4680000 |    6 | stok aman    |
+| Meja Makan        |     600000 |    4 | stok menipis |
+| Teh Kotak         |       3500 |    6 | stok aman    |
+| PC Desktop HP     |    9984000 |    9 | stok aman    |
+| Teh Botol         |       2500 |   53 | stok aman    |
+| Notebook Acer S   |   11232000 |    7 | stok aman    |
+| Notebook Lenovo   |   12480000 |    9 | stok aman    |
+| Laptop Lenovo     |   16000000 |    5 | stok menipis |
+| Kopi              |      30000 |   10 | stok aman    |
+| Teh Sosro 2       |      15000 |   10 | stok aman    |
+| Laptop Asus       |    5000000 |   10 | stok aman    |
+| Televisi 22 inc`  |   50500000 |    5 | stok menipis |
+| Televisi 23 inc   |   50500000 |    5 | stok menipis |
+| Televisi 24 inc   |   50500000 |    5 | stok menipis |
+| Televisi 25 inc   |   50500000 |    5 | stok menipis |
+| Televisi 27 inc   |   50500000 |    5 | stok menipis |
+| Televisi 28 inc   |   50500000 |    5 | stok menipis |
+| Televisi 29 inc   |   50500000 |    5 | stok menipis |
+| Teh Pucuk         |       5000 |   10 | stok aman    |
+| Teh Pucuk2        |       5000 |   10 | stok aman    |
++-------------------+------------+------+--------------+
+22 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT * jenis_produk_id SUM(stok) AS total FROM produk GROUP BY jenis_produk_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'jenis_produk_id SUM(stok) AS total FROM produk GROUP BY jenis_produk_id' at line 1
+MariaDB [dbtokoti05]>  SELECT jenis_produk_id SUM(stok) AS total FROM produk GROUP BY jenis_produk_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(stok) AS total FROM produk GROUP BY jenis_produk_id' at line 1
+MariaDB [dbtokoti05]> SELECT jenis_produk_id, SUM(stok) AS total FROM produk GROUP BY jenis_produk_id;
++-----------------+-------+
+| jenis_produk_id | total |
++-----------------+-------+
+|               1 |    75 |
+|               2 |     4 |
+|               4 |    89 |
+|               5 |    25 |
++-----------------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT jenis_produk_id,
+    -> CASE
+    -> WHEN jenik_produk_id = 1 THEN 'elektronik'
+    -> WHEN jenik_produk_id = 2 THEN 'furniture'
+    -> WHEN jenik_produk_id = 4 THEN 'makanan'
+    -> ELSE 'minuman'
+    ->
+    -> ELSE 'minuman'
+    -> END AS kategori,
+    -> SUM(stok) AS tota FROM produk
+    -> GROUP BY jenis_produk_makanan
+    -> GROUP BY jenis_produk_makanan;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ELSE 'minuman'
+END AS kategori,
+SUM(stok) AS tota FROM produk
+GROUP BY jenis_...' at line 8
+MariaDB [dbtokoti05]> SELECT jenis_produk_id,
+    -> CASE
+    -> WHEN jenis_produk_id = 1 THEN 'elektronik'
+    -> WHEN jenis_produk_id = 2 THEN 'furniture'
+    -> WHEN jenis_produk_id = 4 THEN 'makanan'
+    -> ELSE 'minuman'
+    -> END AS kategori,
+    -> SUM(stok) AS tota FROM produk
+    -> GROUP BY jenis_produk_id;
++-----------------+------------+------+
+| jenis_produk_id | kategori   | tota |
++-----------------+------------+------+
+|               1 | elektronik |   75 |
+|               2 | furniture  |    4 |
+|               4 | makanan    |   89 |
+|               5 | minuman    |   25 |
++-----------------+------------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]> SELECT jenis_produk_id,SUM(stok) AS total FROM produk
+    -> GROUP BY jenis_produk_id HAVING total > 30;
++-----------------+-------+
+| jenis_produk_id | total |
++-----------------+-------+
+|               1 |    75 |
+|               4 |    89 |
++-----------------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [dbtokoti05]>
